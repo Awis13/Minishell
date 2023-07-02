@@ -1,0 +1,11 @@
+# Ignore all object files
+*.o
+
+# Ignore the actual binary executable
+minishell
+
+# Ignore all .DS_Store (Mac OS)
+.DS_Store
+
+# Ignore all files ending in ~ (usually backup files from text editors)
+*~

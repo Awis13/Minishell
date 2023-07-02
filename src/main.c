@@ -3,6 +3,7 @@
 #include "get_next_line.h"
 #include "ft_printf.h"
 #include "libft.h"
+#include <dirent.h>
 
 void cmd_exit(char **args);
 void cmd_echo(char **args);
@@ -42,6 +43,60 @@ void cmd_pwd(char **args __attribute__((unused)))
     }
 }
 
+void cmd_ls(char **args __attribute__((unused)))
+{
+    DIR *dir;
+    struct dirent *ent;
+
+    if ((dir = opendir(".")) != NULL)
+    {
+        while ((ent = readdir(dir)) != NULL)
+        {
+            ft_printf("%s\n", ent->d_name);
+        }
+        closedir(dir);
+    }
+    else
+    {
+        ft_printf("Error: Unable to open directory.\n");
+    }
+}
+#include <string.h>
+
+void cmd_cd(char **args)
+{
+    if (args[1] == NULL)
+    {
+        ft_printf("Error: Expected argument to \"cd\".\n");
+    }
+    else
+    {
+        size_t dir_length = strlen(args[1]);
+        if (dir_length > 0 && args[1][dir_length - 1] == '\n') {
+            args[1][dir_length - 1] = '\0';  // Remove the newline character
+        }
+        
+        if (chdir(args[1]) != 0)
+        {
+            ft_printf("Error: Unable to change directory to \"%s\".\n", args[1]);
+        }
+        else
+        {
+            char cwd[1024];
+            if (getcwd(cwd, sizeof(cwd)) != NULL)
+            {
+                ft_printf("Current directory: %s\n", cwd);
+            }
+            else
+            {
+                ft_printf("Error: Unable to get current working directory.\n");
+            }
+        }
+    }
+}
+
+
+
 struct
 {
     char *name;
@@ -50,11 +105,24 @@ struct
     { "exit", cmd_exit },
     { "echo", cmd_echo },
     { "pwd", cmd_pwd },
+    { "ls", cmd_ls },
+	{"cd", cmd_cd },
     // add more commands here
 };
 
+void print_intro(void)
+{
+    ft_printf("   _____  .__       .__  _________.__           .__  .__   \n");
+    ft_printf("  /     \\ |__| ____ |__|/   _____/|  |__   ____ |  | |  |  \n");
+    ft_printf(" /  \\ /  \\|  |/    \\|  |\\_____  \\ |  |  \\_/ __ \\|  | |  |  \n");
+    ft_printf("/    Y    \\  |   |  \\  |/        \\|   Y  \\  ___/|  |_|  |__\n");
+    ft_printf("\\____|__  /__|___|  /__/_______  /|___|  /\\___  >____/____/\n");
+    ft_printf("        \\/        \\/           \\/      \\/     \\/           \n");
+    ft_printf("Type 'exit' to exit.\n");
+}
 int main(void)
 {
+	print_intro();
     while (1)
     {
         ft_printf("# ");

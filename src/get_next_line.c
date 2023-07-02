@@ -6,7 +6,7 @@
 /*   By: awis <awis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 00:04:02 by nipostni          #+#    #+#             */
-/*   Updated: 2023/07/02 13:28:45 by awis             ###   ########.fr       */
+/*   Updated: 2023/07/02 15:30:40 by awis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,16 @@ char	*get_next_line(int fd)
 	if (!stash)
 		return (NULL);
 	len = ft_strchr(stash, '\n') - stash;
-	line = ft_substr(stash, 0, len + 1);
+	if (ft_strchr(stash, '\n'))  // check if newline character exists
+		line = ft_substr(stash, 0, len);  // if yes, exclude it
+	else
+		line = ft_substr(stash, 0, len + 1);  // if no, include everything
 	temp = stash;
 	stash = ft_substr(stash, len + 1, (ft_strlen(stash) - len));
 	free(temp);
 	return (line);
 }
+
 
 // int main()
 // {

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nipostni <awis@me.com>                     +#+  +:+       +#+        */
+/*   By: awis <awis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 00:04:02 by nipostni          #+#    #+#             */
-/*   Updated: 2023/04/20 17:57:13 by nipostni         ###   ########.fr       */
+/*   Updated: 2023/07/02 13:28:45 by awis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
 static char	*get_one_line(int fd, char *stash)
 {

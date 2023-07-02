@@ -107,7 +107,7 @@ char *find_executable(char *command)
         if (access(executable_path, X_OK) == 0)
         {
             free(path);
-            return strdup(executable_path);
+            return ft_strdup(executable_path);
         }
 
         dir = strtok(NULL, ":");

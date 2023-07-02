@@ -11,18 +11,20 @@ SRCS =  src/main.c \
 OBJS = $(SRCS:.c=.o)
 
 .c.o:
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
+	@echo "Compiled "$<" successfully!"
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 all: $(NAME)
-
+	@echo "Compilation done!"
+	@echo "./minishell is ready to use!"
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
